@@ -5,8 +5,9 @@
   "main": "electron/main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder",
-    "dist:win": "electron-builder --win"
+    "icon": "node scripts/generate-icon.js",
+    "dist": "npm run icon && electron-builder",
+    "dist:win": "npm run icon && electron-builder --win"
   },
   "build": {
     "appId": "com.music-card-maker",
@@ -22,7 +23,7 @@
       "covers/**/*"
     ],
     "win": {
-      "icon": null,
+      "icon": "build/icon.ico",
       "target": ["nsis"]
     },
     "nsis": {
@@ -34,6 +35,8 @@
   },
   "devDependencies": {
     "electron": "^41.4.0",
-    "electron-builder": "^26.8.1"
+    "electron-builder": "^26.8.1",
+    "png-to-ico": "^3.0.2",
+    "sharp": "^0.35.3"
   }
 }

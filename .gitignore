@@ -3,4 +3,5 @@ release/
 dist/
 *.py
 configs/
+build/
 成品/
