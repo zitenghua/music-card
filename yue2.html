@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可配置音乐卡片</title>
+    <link rel="stylesheet" href="yue2.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- 左侧：可滚动配置 -->
+    <div class="config-panel">
+        <div class="config-header">
+            <h3>卡片配置</h3>
+            <div class="sub">调整参数 · 实时预览</div>
+        </div>
+
+        <div class="history-section" id="historySection"></div>
+
+        <div class="config-grid" id="configGrid"></div>
+
+        <div class="config-actions">
+            <div class="config-actions-row">
+                <button class="btn-action btn-import" id="importBtn">导入配置</button>
+                <button class="btn-action btn-export" id="exportBtn">导出配置</button>
+            </div>
+            <div class="config-actions-row">
+                <button class="btn-action btn-reset" id="resetBtn">重置</button>
+                <button class="btn-action btn-png" id="exportPngBtn">导出 PNG</button>
+            </div>
+        </div>
+
+        <input type="file" id="importFileInput" accept=".json" style="display:none">
+    </div>
+
+    <!-- 右侧：预览 + 封面浏览器 -->
+    <div class="right-panel">
+        <div class="preview-section">
+            <span class="right-section-label">预览</span>
+            <div class="music-card" id="musicCard">
+                <div class="album-cover">
+                    <div class="album-img" id="albumImage"></div>
+                </div>
+                <div class="overlay"></div>
+
+                <div class="content-group">
+                    <div class="song-info">
+                        <div class="song-title" id="songTitle">邂逅</div>
+                        <div class="song-artist" id="songArtist">kaf</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="time-display">
+                            <span id="currentTime">1:23</span>
+                            <span id="totalTime">3:47</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-buttons">
+                    <button class="control-btn prev-btn" title="上一首"><i class="fas fa-step-backward"></i></button>
+                    <button class="control-btn play-btn" id="playBtn" title="播放/暂停"><i class="fas fa-play" id="playIcon"></i></button>
+                    <button class="control-btn next-btn" title="下一首"><i class="fas fa-step-forward"></i></button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn" id="favoriteBtn" title="收藏"><i class="fas fa-heart"></i></button>
+                    <button class="action-btn" id="commentBtn" title="评论区"><i class="fas fa-comment-dots"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cover-browser" id="coverBrowser">
+            <span class="right-section-label">封面搜索</span>
+            <div class="cover-search-bar">
+                <div class="cover-search-types">
+                    <button class="cover-type-btn active" data-type="song">歌曲</button>
+                    <button class="cover-type-btn" data-type="album">专辑</button>
+                    <button class="cover-type-btn" data-type="artist">歌手</button>
+                </div>
+                <div class="cover-search-row">
+                    <input type="text" id="coverSearchInput" placeholder="输入关键词搜索...">
+                    <select id="coverCountrySelect">
+                        <option value="">所有国家</option>
+                        <option value="CN" selected>中国</option>
+                        <option value="JP">日本</option>
+                        <option value="KR">韩国</option>
+                        <option value="US">美国</option>
+                        <option value="GB">英国</option>
+                        <option value="TW">台湾</option>
+                        <option value="HK">香港</option>
+                    </select>
+                    <button id="coverSearchBtn"><i class="fas fa-search"></i> 搜索</button>
+                </div>
+            </div>
+            <div class="cover-results" id="coverResults">
+                <div class="cover-results-empty">
+                    <i class="fas fa-music"></i>
+                    <p>输入歌曲名或歌手，搜索封面</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="yue2.js"></script>
+</body>
+</html>

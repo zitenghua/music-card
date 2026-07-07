@@ -1,0 +1,39 @@
+{
+  "name": "music-card-maker",
+  "version": "1.0.0",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.music-card-maker",
+    "productName": "音乐卡片制作工具",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*",
+      "yue2.html",
+      "yue2.css",
+      "yue2.js",
+      "covers/**/*"
+    ],
+    "win": {
+      "icon": null,
+      "target": ["nsis"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^41.4.0",
+    "electron-builder": "^26.8.1"
+  }
+}
