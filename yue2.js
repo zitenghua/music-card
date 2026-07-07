@@ -1131,11 +1131,18 @@ async function exportImage() {
             ctx.globalAlpha = 1;
         });
 
-        // 下载 PNG
-        const a = document.createElement('a');
-        a.download = 'music-card.png';
-        a.href = canvas.toDataURL('image/png');
-        a.click();
+        // 下载 PNG（Electron 弹出保存对话框→成品/，浏览器直接下载）
+        const pngDataUrl = canvas.toDataURL('image/png');
+        if (window.electronAPI) {
+          const ok = await window.electronAPI.exportPngFile({ dataUrl: pngDataUrl });
+          if (ok) showToast('PNG 已保存到成品文件夹');
+          else showToast('已取消');
+        } else {
+          const a = document.createElement('a');
+          a.download = 'music-card.png';
+          a.href = pngDataUrl;
+          a.click();
+        }
 
         card.style.boxShadow = origShadow;
     } catch (err) {

@@ -36,6 +36,27 @@ ipcMain.handle('export-config-file', async (event, { fileName, content }) => {
   return true;
 });
 
+// 成品文件夹路径
+const productsDir = path.join(__dirname, '..', '成品');
+
+ipcMain.handle('export-png-file', async (event, { dataUrl }) => {
+  // 确保成品目录存在
+  try { fs.mkdirSync(productsDir, { recursive: true }); } catch {}
+
+  const result = await dialog.showSaveDialog({
+    defaultPath: path.join(productsDir, 'music-card.png'),
+    filters: [{ name: 'PNG 图片', extensions: ['png'] }],
+  });
+  if (result.canceled || !result.filePath) return false;
+
+  // dataUrl -> Buffer
+  const matches = dataUrl.match(/^data:image\/png;base64,(.+)$/);
+  if (!matches) return false;
+  const buffer = Buffer.from(matches[1], 'base64');
+  fs.writeFileSync(result.filePath, buffer);
+  return true;
+});
+
 ipcMain.handle('import-config-file', async () => {
   // 确保 configs 目录存在
   try { fs.mkdirSync(configsDir, { recursive: true }); } catch {}
