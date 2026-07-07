@@ -36,11 +36,11 @@ ipcMain.handle('export-config-file', async (event, { fileName, content }) => {
   return true;
 });
 
-// 成品文件夹路径
-const productsDir = path.join(__dirname, '..', '成品');
+// 输出文件夹路径
+const productsDir = path.join(__dirname, '..', 'output');
 
 ipcMain.handle('export-png-file', async (event, { dataUrl }) => {
-  // 确保成品目录存在
+  // 确保输出目录存在
   try { fs.mkdirSync(productsDir, { recursive: true }); } catch {}
 
   const result = await dialog.showSaveDialog({
