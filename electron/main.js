@@ -68,8 +68,23 @@ function createWindow() {
   win.loadFile(path.join(__dirname, '..', 'yue2.html'));
 }
 
-app.whenReady().then(createWindow);
-
-app.on('window-all-closed', () => {
+// ★ 单实例锁：只允许一个窗口
+const gotLock = app.requestSingleInstanceLock();
+if (!gotLock) {
   app.quit();
-});
+} else {
+  app.on('second-instance', () => {
+    // 如果有人试图再开一个，焦点回到已有窗口
+    const wins = BrowserWindow.getAllWindows();
+    if (wins.length > 0) {
+      if (wins[0].isMinimized()) wins[0].restore();
+      wins[0].focus();
+    }
+  });
+
+  app.whenReady().then(createWindow);
+
+  app.on('window-all-closed', () => {
+    app.quit();
+  });
+}

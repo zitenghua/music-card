@@ -166,6 +166,150 @@ function applyConfig(c) {
     document.getElementById('currentTime').textContent = c.currentTime;
     document.getElementById('totalTime').textContent = c.totalTime;
     document.getElementById('favoriteBtn').classList.toggle('active', c.isFavorite);
+    // 延迟执行字号适应，确保 DOM 已渲染完成
+    requestAnimationFrame(() => fitTitle());
+    // 双保险：再延迟一次（部分浏览器 rAF 时机不一致）
+    setTimeout(() => fitTitle(), 50);
+}
+
+// 通用红线适配：限制元素宽度不超过收藏按钮左边沿，自动缩小字号或换行
+function clampTextWidth(el, defaultSize, fontWeight) {
+    if (!el || !el.textContent) return;
+
+    const card = document.getElementById('musicCard');
+    if (!card) return;
+
+    // 强制浏览器重新计算布局
+    void card.offsetHeight;
+
+    const actionBtns = card.querySelector('.action-buttons');
+    const elRect = el.getBoundingClientRect();
+
+    let availWidth;
+    if (actionBtns) {
+        const btnLeft = actionBtns.getBoundingClientRect().left;
+        availWidth = btnLeft - elRect.left - 5;
+    } else {
+        availWidth = card.getBoundingClientRect().width - 130;
+    }
+    if (availWidth <= 20) return -1;
+
+    // ★★★ 红线原则：物理限制宽度
+    el.style.maxWidth = availWidth + 'px';
+    el.style.boxSizing = 'border-box';
+
+    const baseSize = parseFloat(defaultSize) || 12;
+    const weight = fontWeight || 400;
+
+    // 测量文字宽度
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.font = `${weight} ${baseSize}px sans-serif`;
+
+    if (ctx.measureText(el.textContent).width <= availWidth) {
+        el.style.fontSize = baseSize + 'px';
+        el.style.whiteSpace = 'nowrap';
+        el.style.overflow = 'hidden';
+        el.style.textOverflow = 'ellipsis';
+        el.style.lineHeight = '1.3';
+        el.style.display = '';
+        el.style.webkitLineClamp = '';
+        el.style.webkitBoxOrient = '';
+        el.style.maxHeight = '';
+        return baseSize;
+    }
+
+    // 二分查找最佳字号
+    let low = 8, high = baseSize, best = 8;
+    while (low <= high) {
+        const mid = (low + high) / 2;
+        ctx.font = `${weight} ${mid}px sans-serif`;
+        if (ctx.measureText(el.textContent).width <= availWidth) {
+            best = mid;
+            low = mid + 0.5;
+        } else {
+            high = mid - 0.5;
+        }
+    }
+
+    el.style.webkitLineClamp = '';
+    el.style.webkitBoxOrient = '';
+    el.style.maxHeight = '';
+    el.style.display = '';
+
+    if (best >= 10) {
+        el.style.fontSize = best + 'px';
+        el.style.whiteSpace = 'nowrap';
+        el.style.overflow = 'hidden';
+        el.style.textOverflow = 'ellipsis';
+        el.style.lineHeight = '1.3';
+        return best;
+    } else {
+        el.style.fontSize = '8px';
+        el.style.whiteSpace = 'normal';
+        el.style.overflow = 'hidden';
+        el.style.textOverflow = 'ellipsis';
+        el.style.lineHeight = '1.2';
+        el.style.maxHeight = '2.4em';
+        el.style.display = '-webkit-box';
+        el.style.webkitLineClamp = '2';
+        el.style.webkitBoxOrient = 'vertical';
+        return 8;
+    }
+}
+
+// 对歌名和歌手同时应用红线原则
+function fitTitle() {
+    // 用户手动改过字号 → 清除自适应内联样式，只用红线约束
+    if (currentConfig._manualFont) {
+        ['songTitle', 'songArtist'].forEach(id => {
+            const e = document.getElementById(id);
+            if (!e) return;
+            e.style.fontSize = '';
+            e.style.whiteSpace = '';
+            e.style.overflow = '';
+            e.style.textOverflow = '';
+            e.style.lineHeight = '';
+            e.style.display = '';
+            e.style.webkitLineClamp = '';
+            e.style.webkitBoxOrient = '';
+            e.style.maxHeight = '';
+        });
+        // 重算红线
+        const card = document.getElementById('musicCard');
+        if (card) {
+            void card.offsetHeight;
+            const actionBtns = card.querySelector('.action-buttons');
+            ['songTitle', 'songArtist'].forEach(id => {
+                const e = document.getElementById(id);
+                if (!e) return;
+                const r = e.getBoundingClientRect();
+                if (actionBtns) {
+                    const w = actionBtns.getBoundingClientRect().left - r.left - 5;
+                    if (w > 20) e.style.maxWidth = w + 'px';
+                }
+            });
+        }
+        return;
+    }
+
+    // 自适应模式：基准字号始终从 DEFAULT_CONFIG 取，不受之前适配干扰
+    const defaultTitleSize = parseFloat(DEFAULT_CONFIG.titleSize) || 14;
+    const defaultArtistSize = parseFloat(DEFAULT_CONFIG.artistSize) || 11;
+
+    const usedTitle = clampTextWidth(document.getElementById('songTitle'), defaultTitleSize, 600);
+    const usedArtist = clampTextWidth(document.getElementById('songArtist'), defaultArtistSize, 400);
+
+    // 同步实际字号到左侧配置面板
+    if (usedTitle && usedTitle > 0) {
+        currentConfig.titleSize = usedTitle + 'px';
+        const inp = document.getElementById('c-titleSize');
+        if (inp) inp.value = currentConfig.titleSize;
+    }
+    if (usedArtist && usedArtist > 0) {
+        currentConfig.artistSize = usedArtist + 'px';
+        const inp = document.getElementById('c-artistSize');
+        if (inp) inp.value = currentConfig.artistSize;
+    }
 }
 
 function buildConfigPanel(config) {
@@ -187,6 +331,10 @@ function buildConfigPanel(config) {
 
             const group = document.createElement('div');
             group.className = 'config-group';
+            // 歌曲名、歌手名占整行
+            if (key === 'songTitle' || key === 'songArtist') {
+                group.style.gridColumn = '1 / -1';
+            }
 
             const label = document.createElement('label');
             label.htmlFor = `c-${key}`;
@@ -303,6 +451,10 @@ function buildConfigPanel(config) {
                 input.type = 'text';
                 input.value = val;
                 input.addEventListener('input', sync);
+                // 用户手动改字号 → 跳过 fitTitle 自动覆盖
+                if (key === 'titleSize' || key === 'artistSize') {
+                    input.addEventListener('input', () => { currentConfig._manualFont = true; });
+                }
             }
 
             if (input) {
@@ -495,6 +647,7 @@ document.getElementById('commentBtn').addEventListener('click', () => alert('评
 // 配置操作
 // ============================================================
 document.getElementById('resetBtn').addEventListener('click', () => {
+    delete currentConfig._manualFont;
     currentConfig = { ...DEFAULT_CONFIG };
     buildConfigPanel(currentConfig);
     applyConfig(currentConfig);
@@ -586,6 +739,9 @@ async function doCoverSearch(query) {
 
     const type = document.querySelector('.cover-type-btn.active')?.dataset.type || 'song';
     const country = document.getElementById('coverCountrySelect')?.value || '';
+    // 用户搜新歌 → 重置手动标记，让自动适配重新生效
+    delete currentConfig._manualFont;
+
     const resultsEl = document.getElementById('coverResults');
 
     // 显示加载中
@@ -652,8 +808,36 @@ async function doCoverSearch(query) {
             itemDiv.appendChild(label);
 
             itemDiv.addEventListener('click', () => {
+                // 用户选了新歌 → 恢复自适应
+                delete currentConfig._manualFont;
+
                 currentConfig.albumImageUrl = bigUrl;
                 document.getElementById('albumImage').style.backgroundImage = `url('${bigUrl}')`;
+
+                // 自动填充歌曲信息
+                if (name) {
+                    if (type === 'song' || type === 'album') {
+                        currentConfig.songTitle = name;
+                        currentConfig.songArtist = sub || '';
+                    } else if (type === 'artist') {
+                        currentConfig.songArtist = name;
+                    }
+                    // 更新配置面板的输入框
+                    const titleInput = document.getElementById('c-songTitle');
+                    const artistInput = document.getElementById('c-songArtist');
+                    if (titleInput) titleInput.value = currentConfig.songTitle;
+                    if (artistInput) artistInput.value = currentConfig.songArtist;
+
+                    // 自动填充歌曲时长（iTunes 返回 trackTimeMillis）
+                    if (item.trackTimeMillis) {
+                        const totalSec = Math.round(item.trackTimeMillis / 1000);
+                        const min = Math.floor(totalSec / 60);
+                        const sec = totalSec % 60;
+                        currentConfig.totalTime = min + ':' + String(sec).padStart(2, '0');
+                        const timeInput = document.getElementById('c-totalTime');
+                        if (timeInput) timeInput.value = currentConfig.totalTime;
+                    }
+                }
 
                 const nameText = document.querySelector('.drop-zone-name');
                 const hintText = document.querySelector('.drop-zone-hint');

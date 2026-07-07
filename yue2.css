@@ -55,6 +55,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
+    box-sizing: border-box;
 }
 
 .song-artist {
