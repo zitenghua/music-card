@@ -14,7 +14,6 @@ const DEFAULT_CONFIG = {
     albumImgRadius: '8px',
 
     textColor: '#ffffff',
-    textShadow: '0 2px 4px rgba(0,0,0,0.5)',
     titleSize: '14px',
     artistSize: '11px',
     artistOpacity: '0.9',
@@ -44,7 +43,6 @@ const DEFAULT_CONFIG = {
     playBtnIconSize: '20px',
     playBtnBg: '#ffffff',
     playBtnColor: '#8B1A35',
-    playBtnShadow: '0 2px 8px rgba(255,255,255,0.2)',
 
     actionTop: 'calc(55% + 24px)',
     actionRight: '1cm',
@@ -78,7 +76,6 @@ const FIELD_META = {
     songTitle:{label:'歌曲名',type:'text'}, songArtist:{label:'歌手名',type:'text'},
     currentTime:{label:'当前时间',type:'text'}, totalTime:{label:'总时长',type:'text'},
     albumImageUrl:{label:'封面图片',type:'image'}, isFavorite:{label:'默认收藏',type:'checkbox'},
-    playBtnShadow:{label:'播放键阴影',type:'text'}, textShadow:{label:'文字阴影',type:'text'},
 };
 
 const HIDDEN_FIELDS = new Set([
@@ -93,7 +90,6 @@ const FIELD_SECTIONS = [
     { title:'尺寸', keys:['cardWidth','cardAspectRatio','cardRadius','progressPercent','titleSize','artistSize','sideBtnSize','playBtnSize','actionBtnSize','controlsGap','albumHeight','albumImgRadius'] },
     { title:'内容', keys:['songTitle','songArtist','currentTime','totalTime','albumImageUrl'] },
     { title:'状态', keys:['isFavorite'] },
-    { title:'高级', keys:['playBtnShadow','textShadow'] },
 ];
 
 // ============================================================
@@ -124,7 +120,6 @@ function applyConfig(c) {
         '--album-img-radius':     c.albumImgRadius,
         '--overlay-gradient':     overlayGrad,
         '--text-color':           c.textColor,
-        '--text-shadow':          c.textShadow,
         '--title-size':           c.titleSize,
         '--artist-size':          c.artistSize,
         '--artist-opacity':       c.artistOpacity,
@@ -146,7 +141,6 @@ function applyConfig(c) {
         '--play-btn-icon-size':   c.playBtnIconSize,
         '--play-btn-bg':          c.playBtnBg,
         '--play-btn-color':       c.playBtnColor,
-        '--play-btn-shadow':      c.playBtnShadow,
         '--action-top':           c.actionTop,
         '--action-right':         c.actionRight,
         '--action-gap':           c.actionGap,
