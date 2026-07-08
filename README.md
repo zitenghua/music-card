@@ -36,12 +36,12 @@
 
 ### 普通用户
 
-从 [Releases](https://github.com/941169647/nfc-music-card/releases) 下载 `音乐卡片制作工具 Setup 1.0.1.exe`，双击安装即可使用。
+从 [Releases](https://github.com/941169647/music-card/releases) 下载 `音乐卡片制作工具 Setup 1.0.1.exe`，双击安装即可使用。
 
 ### 开发者
 
 ```bash
-git clone https://github.com/941169647/nfc-music-card.git
+git clone https://github.com/941169647/music-card.git
 cd nfc-music-card
 npm install
 npm start
