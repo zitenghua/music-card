@@ -345,16 +345,19 @@ function buildConfigPanel(config) {
             if (meta.type === 'color') {
                 input = document.createElement('input');
                 input.type = 'color';
+                input.id = `c-${key}`;
                 input.value = val;
                 input.addEventListener('input', sync);
             } else if (meta.type === 'checkbox') {
                 input = document.createElement('input');
                 input.type = 'checkbox';
+                input.id = `c-${key}`;
                 input.checked = !!val;
                 input.addEventListener('change', sync);
             } else if (meta.type === 'range') {
                 input = document.createElement('input');
                 input.type = 'range';
+                input.id = `c-${key}`;
                 input.min = meta.min;
                 input.max = meta.max;
                 input.step = meta.step;
@@ -449,6 +452,7 @@ function buildConfigPanel(config) {
             } else {
                 input = document.createElement('input');
                 input.type = 'text';
+                input.id = `c-${key}`;
                 // 带单位的字段：只显示数字，隐藏单位
                 const displayVal = meta.unit ? val.replace(meta.unit, '') : val;
                 input.value = displayVal;
@@ -466,26 +470,20 @@ function buildConfigPanel(config) {
                 if (key === 'titleSize' || key === 'artistSize') {
                     input.addEventListener('input', () => { currentConfig._manualFont = true; });
                 }
-                // 显示单位后缀
-                if (meta.unit) {
-                    const unitSpan = document.createElement('span');
-                    unitSpan.textContent = meta.unit;
-                    unitSpan.style.cssText = 'font-size:11px;color:#bbb;margin-left:4px;flex-shrink:0;';
-                    group.appendChild(unitSpan);
-                    // 将输入和单位放在同一行
-                    group.style.flexDirection = 'row';
-                    group.style.alignItems = 'center';
-                    group.style.flexWrap = 'wrap';
-                    group.style.gap = '4px';
-                    // 让输入框占剩余空间
-                    input.style.flex = '1';
-                    input.style.minWidth = '40px';
-                }
-            }
 
-            if (input) {
-                input.id = `c-${key}`;
-                group.appendChild(input);
+                if (meta.unit) {
+                    // 输入框 + 单位标签在同一行
+                    const row = document.createElement('div');
+                    row.className = 'config-unit-row';
+                    const badge = document.createElement('span');
+                    badge.className = 'config-unit-badge';
+                    badge.textContent = meta.unit;
+                    row.appendChild(input);
+                    row.appendChild(badge);
+                    group.appendChild(row);
+                } else {
+                    group.appendChild(input);
+                }
             }
             grid.appendChild(group);
         });
