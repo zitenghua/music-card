@@ -75,7 +75,7 @@ const FIELD_META = {
     albumHeight:{label:'封面高度占比',type:'text'}, albumImgRadius:{label:'封面圆角',type:'text',unit:'px'},
     songTitle:{label:'歌曲名',type:'text'}, songArtist:{label:'歌手名',type:'text'},
     currentTime:{label:'当前时间',type:'text'}, totalTime:{label:'总时长',type:'text'},
-    albumImageUrl:{label:'封面图片',type:'image'}, isFavorite:{label:'默认收藏',type:'checkbox'},
+    albumImageUrl:{label:'封面图片',type:'image'}, isFavorite:{label:'默认收藏',type:'checkbox'}, darkMode:{label:'深色模式',type:'checkbox'},
 };
 
 const HIDDEN_FIELDS = new Set([
@@ -92,7 +92,7 @@ const FIELD_SECTIONS = [
     { title:'颜色', keys:['cardBg','textColor','progressFillColor','progressTrackColor','progressTextColor','playBtnBg','playBtnColor','actionBtnBg','actionBtnOpacity','actionActiveColor'] },
     { title:'尺寸', keys:['cardWidth','cardAspectRatio','cardRadius','progressPercent','titleSize','artistSize','sideBtnSize','playBtnSize','actionBtnSize','controlsGap','albumHeight','albumImgRadius'] },
     { title:'内容', keys:['songTitle','songArtist','currentTime','totalTime','albumImageUrl'] },
-    { title:'状态', keys:['isFavorite'] },
+    { title:'状态', keys:['isFavorite','darkMode'] },
 ];
 
 // ============================================================
@@ -498,6 +498,8 @@ function sync() {
     currentConfig = readConfig();
     autoCalcTime(currentConfig);
     applyConfig(currentConfig);
+    // 深色模式切换
+    document.body.classList.toggle('dark', !!currentConfig.darkMode);
 }
 
 function autoCalcTime(c) {

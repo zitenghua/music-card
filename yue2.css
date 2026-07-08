@@ -848,3 +848,200 @@ body {
     .preview-section { min-height: 360px; padding: 20px; }
     .cover-browser { width: 100%; border-left: none; border-top: 1px solid #eee; }
 }
+
+/* ========================================
+   深色模式
+   ======================================== */
+body.dark {
+    background: #1a1a1e;
+}
+body.dark .config-panel {
+    background: #1a1a1e;
+}
+body.dark .config-header h3 {
+    color: #e8e8e8;
+}
+body.dark .config-header .sub {
+    color: #999;
+}
+body.dark .section-label {
+    color: #999;
+    border-bottom-color: #333;
+}
+body.dark .config-group label {
+    color: #999;
+}
+body.dark .config-group input {
+    background: #2a2a2e;
+    border-color: #3a3a3e;
+    color: #ddd;
+}
+body.dark .config-group input:focus {
+    border-color: #555;
+    background: #333;
+}
+body.dark .config-group input[type="color"]::-webkit-color-swatch {
+    border-color: #444;
+}
+body.dark .config-unit-badge {
+    background: #333;
+    color: #999;
+}
+body.dark .config-group input:disabled,
+body.dark .config-group input[readonly] {
+    background: #222;
+    color: #666;
+    border-color: #333;
+    -webkit-text-fill-color: #666;
+}
+body.dark .history-section {
+    border-color: #333;
+    background: #222;
+}
+body.dark .history-header:hover {
+    background: #2a2a2e;
+}
+body.dark .history-title {
+    color: #999;
+}
+body.dark .history-badge {
+    background: #333;
+    color: #999;
+}
+body.dark .history-arrow {
+    color: #666;
+}
+body.dark .history-body {
+    border-top-color: #333;
+}
+body.dark .history-item:hover {
+    background: #2a2a2e;
+}
+body.dark .history-item-time {
+    color: #888;
+}
+body.dark .history-name-input {
+    color: #ccc;
+}
+body.dark .history-name-input:focus {
+    border-bottom-color: #555;
+}
+body.dark .history-empty {
+    color: #666;
+}
+body.dark .history-del-btn {
+    color: #666;
+}
+body.dark .history-del-btn:hover {
+    background: #332222;
+}
+body.dark .history-save-btn {
+    background: #1a5a30;
+}
+body.dark .config-actions {
+    border-top-color: #333;
+    background: #1a1a1e;
+}
+body.dark .btn-reset {
+    background: #333;
+    color: #999;
+}
+body.dark .btn-export {
+    background: #555;
+}
+body.dark .btn-import {
+    background: #444;
+}
+body.dark .btn-png {
+    background: #1a5a30;
+}
+body.dark .right-panel {
+    background: #1a1a1e;
+}
+body.dark .preview-section {
+    border-right-color: #333;
+}
+body.dark .right-section-label {
+    color: #666;
+}
+body.dark .cover-browser {
+    background: #1a1a1e;
+}
+body.dark .cover-search-types {
+    background: #2a2a2e;
+}
+body.dark .cover-type-btn {
+    color: #888;
+}
+body.dark .cover-type-btn:hover {
+    color: #ccc;
+}
+body.dark .cover-type-btn.active {
+    background: #3a3a3e;
+    color: #eee;
+}
+body.dark .cover-search-row input {
+    background: #2a2a2e;
+    border-color: #3a3a3e;
+    color: #ddd;
+}
+body.dark .cover-search-row input:focus {
+    border-color: #555;
+    background: #333;
+}
+body.dark .cover-search-row select {
+    background: #2a2a2e;
+    border-color: #3a3a3e;
+    color: #aaa;
+}
+body.dark .cover-search-row button {
+    background: #555;
+}
+body.dark .cover-results-empty i {
+    color: #444;
+}
+body.dark .cover-results-empty p {
+    color: #666;
+}
+body.dark .cover-result-item {
+    background: #2a2a2e;
+    border-color: transparent;
+}
+body.dark .cover-result-item:hover {
+    border-color: #555;
+}
+body.dark .image-drop-zone {
+    background: #2a2a2e;
+    border-color: #3a3a3e;
+}
+body.dark .image-drop-zone:hover {
+    border-color: #555;
+    background: #333;
+}
+body.dark .drop-zone-name {
+    color: #ccc;
+}
+body.dark .drop-zone-hint {
+    color: #888;
+}
+body.dark .cover-loading {
+    color: #888;
+}
+body.dark .cover-error {
+    color: #e06060;
+}
+body.dark .config-group input[type="range"]::-webkit-slider-runnable-track {
+    background: #444;
+}
+body.dark .config-group input[type="range"]::-webkit-slider-thumb {
+    background: #888;
+}
+body.dark .config-scroll::-webkit-scrollbar-thumb {
+    background: #444;
+}
+body.dark .history-list::-webkit-scrollbar-thumb {
+    background: #444;
+}
+body.dark .cover-results::-webkit-scrollbar-thumb {
+    background: #444;
+}

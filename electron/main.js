@@ -105,6 +105,8 @@ function createWindow() {
     width: 1100,
     height: 800,
     title: '音乐卡片制作工具',
+    autoHideMenuBar: true,
+    menu: null,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
