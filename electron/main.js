@@ -2,24 +2,44 @@ const { app, BrowserWindow, dialog, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
-// 用户数据目录（打包后→文档/音乐卡片，开发→项目根目录）
-function userDir(sub) {
-  const base = app.isPackaged
-    ? path.join(app.getPath('documents'), '音乐卡片制作工具')
+// 应用根目录（安装版=exe所在目录，开发版=项目根目录）
+function appRoot() {
+  return app.isPackaged
+    ? path.dirname(app.getPath('exe'))
     : path.join(__dirname, '..');
-  const dir = path.join(base, sub);
+}
+
+// 用户数据目录（output, configs 等放到安装目录下）
+function userDir(sub) {
+  const dir = path.join(appRoot(), sub);
   try { fs.mkdirSync(dir, { recursive: true }); } catch {}
   return dir;
 }
 const outputDir = userDir('output');
 const configsDir = userDir('configs');
 
+// 确保 covers 目录在安装目录下存在
+function ensureCovers() {
+  const coversDir = path.join(appRoot(), 'covers');
+  if (fs.existsSync(coversDir)) return coversDir;
+
+  // 打包版：从 extraResources 复制默认封面到安装目录
+  if (app.isPackaged) {
+    const srcDir = path.join(process.resourcesPath, 'covers');
+    if (fs.existsSync(srcDir)) {
+      try { fs.cpSync(srcDir, coversDir, { recursive: true }); } catch (e) {
+        console.warn('复制封面失败:', e.message);
+      }
+    }
+  }
+  // 开发版：项目根目录下已有 covers/
+  return coversDir;
+}
+
 ipcMain.handle('select-cover-file', async () => {
-  const coversDir = path.join(__dirname, '..', 'covers');
-  // covers 已打包在 app 内，目录可能不存在；回退到文档
-  const defaultPath = fs.existsSync(coversDir) ? coversDir : userDir('');
+  const coversDir = ensureCovers();
   const result = await dialog.showOpenDialog({
-    defaultPath,
+    defaultPath: coversDir,
     properties: ['openFile'],
     filters: [{ name: '图片', extensions: ['png', 'jpg', 'jpeg', 'webp', 'gif'] }],
   });
@@ -51,7 +71,6 @@ ipcMain.handle('export-png-file', async (event, { dataUrl, fileName }) => {
   });
   if (result.canceled || !result.filePath) return false;
 
-  // dataUrl -> Buffer
   const matches = dataUrl.match(/^data:image\/png;base64,(.+)$/);
   if (!matches) return false;
   const buffer = Buffer.from(matches[1], 'base64');
@@ -72,11 +91,12 @@ ipcMain.handle('import-config-file', async () => {
   return content;
 });
 
-// 暴露目录路径给渲染进程（用于 Toast 提示）
 ipcMain.handle('get-user-dirs', async () => {
   return {
     output: outputDir,
     configs: configsDir,
+    covers: ensureCovers(),
+    root: appRoot(),
   };
 });
 

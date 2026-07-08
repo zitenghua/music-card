@@ -53,7 +53,7 @@ npm start
 2. **调整样式** — 左侧面板调节颜色、尺寸、进度条等参数
 3. **导出配置** — 点击「导出配置」保存当前参数为 `.json` 文件
 4. **导入配置** — 别人分享的配置，点击「导入配置」一键恢复
-5. **导出 PNG** — 点击「导出 PNG」，默认以「歌名-歌手.png」保存到 `output/` 文件夹
+5. **导出 PNG** — 点击「导出 PNG」，默认以「歌名-歌手.png」保存到 `output/` 文件夹（位于安装目录下）
 
 ### 使用场景
 
@@ -83,7 +83,7 @@ npm run dist:win
 ## 📁 项目结构
 
 ```
-nfc-music-card/
+music-card/
 ├── yue2.html          ← 页面结构
 ├── yue2.css           ← 卡片样式
 ├── yue2.js            ← 交互逻辑
@@ -91,10 +91,13 @@ nfc-music-card/
 │   ├── main.js        ← Electron 入口（单实例锁、IPC）
 │   └── preload.js     ← 桥接 API
 ├── covers/            ← 默认封面图片（花鳥風月）
-├── output/            ← 导出的 PNG 图片（本地生成，不上传）
-├── configs/           ← 导出的配置文件
 ├── package.json
 └── icon.svg           ← 应用图标
+
+# 安装后会创建的目录（位于 exe 同目录下）
+├── covers/            ← 用户封面（可自行添加图片）
+├── output/            ← 导出的 PNG 图片
+└── configs/           ← 导出的配置文件
 ```
 
 ## 📄 许可证
