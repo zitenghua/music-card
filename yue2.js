@@ -85,9 +85,12 @@ const HIDDEN_FIELDS = new Set([
     'overlayGradient'
 ]);
 
+// 卡片固定规格（只读展示）
+const CARD_FIXED_KEYS = ['cardWidth', 'cardAspectRatio', 'cardRadius'];
+
 const FIELD_SECTIONS = [
     { title:'颜色', keys:['cardBg','textColor','progressFillColor','progressTrackColor','progressTextColor','playBtnBg','playBtnColor','actionBtnBg','actionBtnOpacity','actionActiveColor'] },
-    { title:'尺寸', keys:['cardWidth','cardAspectRatio','cardRadius','progressPercent','titleSize','artistSize','sideBtnSize','playBtnSize','actionBtnSize','controlsGap','albumHeight','albumImgRadius'] },
+    { title:'尺寸', keys:['progressPercent','titleSize','artistSize','sideBtnSize','playBtnSize','actionBtnSize','controlsGap','albumHeight','albumImgRadius'] },
     { title:'内容', keys:['songTitle','songArtist','currentTime','totalTime','albumImageUrl'] },
     { title:'状态', keys:['isFavorite'] },
 ];
@@ -309,6 +312,41 @@ function fitTitle() {
 function buildConfigPanel(config) {
     const grid = document.getElementById('configGrid');
     grid.innerHTML = '';
+
+    // 卡片固定规格（只读展示）
+    const fixedBox = document.createElement('div');
+    fixedBox.className = 'config-fixed-grid';
+    CARD_FIXED_KEYS.forEach(key => {
+        const meta = FIELD_META[key];
+        const val = config[key] ?? '';
+        const displayVal = meta.unit ? val.replace(meta.unit, '') : val;
+
+        const item = document.createElement('div');
+        item.className = 'config-fixed-item';
+
+        const label = document.createElement('label');
+        label.textContent = meta.label;
+        item.appendChild(label);
+
+        const valueBox = document.createElement('div');
+        valueBox.className = 'config-fixed-value';
+
+        const valSpan = document.createElement('span');
+        valSpan.className = 'value-text';
+        valSpan.textContent = displayVal;
+        valueBox.appendChild(valSpan);
+
+        if (meta.unit) {
+            const unitSpan = document.createElement('span');
+            unitSpan.className = 'value-unit';
+            unitSpan.textContent = meta.unit;
+            valueBox.appendChild(unitSpan);
+        }
+
+        item.appendChild(valueBox);
+        fixedBox.appendChild(item);
+    });
+    grid.appendChild(fixedBox);
 
     FIELD_SECTIONS.forEach(section => {
         const keys = section.keys.filter(k => !HIDDEN_FIELDS.has(k));

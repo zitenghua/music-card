@@ -397,6 +397,53 @@ body {
 }
 .section-label:first-of-type { margin-top: 4px; }
 
+/* 固定卡片规格 - 只读灰色展示 */
+.config-fixed-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+    min-width: 0;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    border: 1.5px solid #eee;
+}
+.config-fixed-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+.config-fixed-item label {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: #bbb;
+    line-height: 1.3;
+}
+.config-fixed-value {
+    font-size: 12px;
+    font-weight: 500;
+    color: #999;
+    background: #f0f0f0;
+    padding: 6px 9px;
+    border-radius: 8px;
+    line-height: 1.4;
+    min-height: 32px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.config-fixed-value .value-text {
+    color: #888;
+}
+.config-fixed-value .value-unit {
+    font-size: 11px;
+    font-weight: 500;
+    color: #bbb;
+}
+
 .config-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
