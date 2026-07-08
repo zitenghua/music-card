@@ -365,7 +365,7 @@ function buildConfigPanel(config) {
                 group.appendChild(input);
 
                 const valSpan = document.createElement('span');
-                valSpan.style.cssText = 'font-size:10.5px;color:#bbb;margin-left:2px;';
+                valSpan.style.cssText = 'font-size:11.5px;font-weight:500;color:#666;margin-left:3px;';
                 valSpan.textContent = val;
                 input.addEventListener('input', () => { valSpan.textContent = input.value; });
                 group.appendChild(valSpan);

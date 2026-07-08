@@ -493,18 +493,19 @@ body {
     align-items: center;
 }
 .config-group input[type="range"]::-webkit-slider-runnable-track {
-    height: 3px;
-    background: #eee;
+    height: 6px;
+    background: #d4d4d4;
     border-radius: 4px;
 }
 .config-group input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     background: #555;
     border-radius: 50%;
-    margin-top: -5.5px;
+    margin-top: -6px;
     cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 .config-group input[type="checkbox"] {
     width: 17px;
