@@ -1131,15 +1131,20 @@ async function exportImage() {
             ctx.globalAlpha = 1;
         });
 
+        // 生成文件名：歌曲名-歌手名.png
+        const safeName = (currentConfig.songTitle || 'music-card').replace(/[\\/:*?"<>|]/g, '_');
+        const safeArtist = (currentConfig.songArtist || '').replace(/[\\/:*?"<>|]/g, '_');
+        const pngFileName = safeArtist ? `${safeName}-${safeArtist}.png` : `${safeName}.png`;
+
         // 下载 PNG（Electron 弹出保存对话框→output/，浏览器直接下载）
         const pngDataUrl = canvas.toDataURL('image/png');
         if (window.electronAPI) {
-          const ok = await window.electronAPI.exportPngFile({ dataUrl: pngDataUrl });
+          const ok = await window.electronAPI.exportPngFile({ dataUrl: pngDataUrl, fileName: pngFileName });
           if (ok) showToast('PNG 已保存到 output 文件夹');
           else showToast('已取消');
         } else {
           const a = document.createElement('a');
-          a.download = 'music-card.png';
+          a.download = pngFileName;
           a.href = pngDataUrl;
           a.click();
         }

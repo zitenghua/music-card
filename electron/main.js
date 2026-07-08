@@ -39,12 +39,12 @@ ipcMain.handle('export-config-file', async (event, { fileName, content }) => {
 // 输出文件夹路径
 const productsDir = path.join(__dirname, '..', 'output');
 
-ipcMain.handle('export-png-file', async (event, { dataUrl }) => {
+ipcMain.handle('export-png-file', async (event, { dataUrl, fileName }) => {
   // 确保输出目录存在
   try { fs.mkdirSync(productsDir, { recursive: true }); } catch {}
 
   const result = await dialog.showSaveDialog({
-    defaultPath: path.join(productsDir, 'music-card.png'),
+    defaultPath: path.join(productsDir, fileName || 'music-card.png'),
     filters: [{ name: 'PNG 图片', extensions: ['png'] }],
   });
   if (result.canceled || !result.filePath) return false;
