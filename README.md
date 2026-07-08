@@ -13,7 +13,7 @@
   </p>
   <p>
     <a href="https://github.com/zitenghua/music-card/releases">
-      <img src="https://img.shields.io/badge/下载-v1.0.1-2d7d46?style=for-the-badge&logo=github" alt="Download">
+      <img src="https://img.shields.io/badge/下载-v1.1.0-2d7d46?style=for-the-badge&logo=github" alt="Download">
     </a>
   </p>
 </div>
@@ -26,17 +26,20 @@
 |------|------|
 | 🎨 实时预览 | 左侧调参数，右侧即时看到卡片效果 |
 | 🔍 封面搜索 | 内置 iTunes API，按歌曲/专辑/歌手搜索，200 结果一次拉取 |
-| 🖼️ 本地封面 | 支持本地上传或拖拽封面图片 |
+| 🖼️ 本地封面 | 支持本地上传或拖拽封面图片，封面自动复制到安装目录 |
 | 📐 红线约束 | 歌名和歌手自动缩放到收藏按钮左侧，不遮挡操作区 |
 | 💾 配置导入/导出 | 配置存为 `.json` 文件，随时分享恢复 |
-| 📸 导出 PNG | Canvas 渲染高清图片，默认以「歌名-歌手.png」命名保存到 `output/` 文件夹 |
+| 📸 导出 PNG | Canvas 渲染高清图片，以「歌名-歌手.png」保存到 `output/` 文件夹 |
 | 🌐 多国区搜索 | 支持中国/日本/美国等多国 iTunes 曲库 |
+| 🌙 深色模式 | 一键切换深色界面，护眼更舒适 |
+| 🎯 PX 智能输入 | 尺寸字段只填数字，自动补全 px 单位 |
+| 📌 底部固定按钮 | 导入/导出/重置/导出 PNG 始终固定在左下角 |
 
 ## 📦 安装
 
 ### 普通用户
 
-从 [Releases](https://github.com/zitenghua/music-card/releases) 下载 `音乐卡片制作工具 Setup 1.0.1.exe`，双击安装即可使用。
+从 [Releases](https://github.com/zitenghua/music-card/releases) 下载 `音乐卡片制作工具 Setup 1.1.0.exe`，双击安装即可使用。
 
 ### 开发者
 
