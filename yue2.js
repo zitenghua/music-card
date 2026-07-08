@@ -69,12 +69,12 @@ const FIELD_META = {
     progressTextColor:{label:'时间文字',type:'color'}, playBtnBg:{label:'播放键背景',type:'color'},
     playBtnColor:{label:'播放键图标',type:'color'}, actionBtnBg:{label:'操作按钮底色',type:'color'},
     actionActiveColor:{label:'收藏激活色',type:'color'},
-    cardWidth:{label:'卡片宽度',type:'text'}, cardAspectRatio:{label:'宽高比',type:'text'},
-    cardRadius:{label:'卡片圆角',type:'text'}, progressPercent:{label:'进度百分比',type:'range',min:0,max:100,step:1},
-    titleSize:{label:'标题字号',type:'text'}, artistSize:{label:'歌手字号',type:'text'},
-    sideBtnSize:{label:'侧按钮大小',type:'text'}, playBtnSize:{label:'播放键大小',type:'text'},
-    actionBtnSize:{label:'操作按钮大小',type:'text'}, actionBtnOpacity:{label:'按钮透明度',type:'range',min:0,max:100,step:1}, controlsGap:{label:'按钮间距',type:'text'},
-    albumHeight:{label:'封面高度占比',type:'text'}, albumImgRadius:{label:'封面圆角',type:'text'},
+    cardWidth:{label:'卡片宽度',type:'text',unit:'px'}, cardAspectRatio:{label:'宽高比',type:'text'},
+    cardRadius:{label:'卡片圆角',type:'text',unit:'px'}, progressPercent:{label:'进度百分比',type:'range',min:0,max:100,step:1},
+    titleSize:{label:'标题字号',type:'text',unit:'px'}, artistSize:{label:'歌手字号',type:'text',unit:'px'},
+    sideBtnSize:{label:'侧按钮大小',type:'text',unit:'px'}, playBtnSize:{label:'播放键大小',type:'text',unit:'px'},
+    actionBtnSize:{label:'操作按钮大小',type:'text',unit:'px'}, actionBtnOpacity:{label:'按钮透明度',type:'range',min:0,max:100,step:1}, controlsGap:{label:'按钮间距',type:'text',unit:'px'},
+    albumHeight:{label:'封面高度占比',type:'text'}, albumImgRadius:{label:'封面圆角',type:'text',unit:'px'},
     songTitle:{label:'歌曲名',type:'text'}, songArtist:{label:'歌手名',type:'text'},
     currentTime:{label:'当前时间',type:'text'}, totalTime:{label:'总时长',type:'text'},
     albumImageUrl:{label:'封面图片',type:'image'}, isFavorite:{label:'默认收藏',type:'checkbox'},
@@ -299,16 +299,16 @@ function fitTitle() {
     const usedTitle = clampTextWidth(document.getElementById('songTitle'), defaultTitleSize, 600);
     const usedArtist = clampTextWidth(document.getElementById('songArtist'), defaultArtistSize, 400);
 
-    // 同步实际字号到左侧配置面板
+    // 同步实际字号到左侧配置面板（只写数字，由输入框自动处理单位）
     if (usedTitle && usedTitle > 0) {
         currentConfig.titleSize = usedTitle + 'px';
         const inp = document.getElementById('c-titleSize');
-        if (inp) inp.value = currentConfig.titleSize;
+        if (inp) inp.value = usedTitle;
     }
     if (usedArtist && usedArtist > 0) {
         currentConfig.artistSize = usedArtist + 'px';
         const inp = document.getElementById('c-artistSize');
-        if (inp) inp.value = currentConfig.artistSize;
+        if (inp) inp.value = usedArtist;
     }
 }
 
@@ -449,11 +449,37 @@ function buildConfigPanel(config) {
             } else {
                 input = document.createElement('input');
                 input.type = 'text';
-                input.value = val;
-                input.addEventListener('input', sync);
+                // 带单位的字段：只显示数字，隐藏单位
+                const displayVal = meta.unit ? val.replace(meta.unit, '') : val;
+                input.value = displayVal;
+                // 只允许数字输入
+                if (meta.unit) {
+                    input.inputMode = 'decimal';
+                    input.addEventListener('input', (e) => {
+                        e.target.value = e.target.value.replace(/[^0-9.]/g, '');
+                        sync();
+                    });
+                } else {
+                    input.addEventListener('input', sync);
+                }
                 // 用户手动改字号 → 跳过 fitTitle 自动覆盖
                 if (key === 'titleSize' || key === 'artistSize') {
                     input.addEventListener('input', () => { currentConfig._manualFont = true; });
+                }
+                // 显示单位后缀
+                if (meta.unit) {
+                    const unitSpan = document.createElement('span');
+                    unitSpan.textContent = meta.unit;
+                    unitSpan.style.cssText = 'font-size:11px;color:#bbb;margin-left:4px;flex-shrink:0;';
+                    group.appendChild(unitSpan);
+                    // 将输入和单位放在同一行
+                    group.style.flexDirection = 'row';
+                    group.style.alignItems = 'center';
+                    group.style.flexWrap = 'wrap';
+                    group.style.gap = '4px';
+                    // 让输入框占剩余空间
+                    input.style.flex = '1';
+                    input.style.minWidth = '40px';
                 }
             }
 
@@ -491,6 +517,11 @@ function readConfig() {
         const el = document.getElementById(`c-${key}`);
         if (!el) return;
         cfg[key] = FIELD_META[key].type === 'checkbox' ? el.checked : el.value;
+        // 带单位的字段：值丢失单位时自动补回
+        const unit = FIELD_META[key].unit;
+        if (unit && typeof cfg[key] === 'string' && !cfg[key].endsWith(unit) && cfg[key] !== '') {
+            cfg[key] = cfg[key] + unit;
+        }
     });
     Object.keys(DEFAULT_CONFIG).forEach(k => {
         if (!(k in cfg)) cfg[k] = currentConfig[k] ?? DEFAULT_CONFIG[k];
