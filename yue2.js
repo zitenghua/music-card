@@ -348,12 +348,14 @@ function buildConfigPanel(config) {
                 input.id = `c-${key}`;
                 input.value = val;
                 input.addEventListener('input', sync);
+                group.appendChild(input);
             } else if (meta.type === 'checkbox') {
                 input = document.createElement('input');
                 input.type = 'checkbox';
                 input.id = `c-${key}`;
                 input.checked = !!val;
                 input.addEventListener('change', sync);
+                group.appendChild(input);
             } else if (meta.type === 'range') {
                 input = document.createElement('input');
                 input.type = 'range';
@@ -363,6 +365,7 @@ function buildConfigPanel(config) {
                 input.step = meta.step;
                 input.value = val;
                 input.addEventListener('input', sync);
+                group.appendChild(input);
 
                 const valSpan = document.createElement('span');
                 valSpan.style.cssText = 'font-size:10.5px;color:#bbb;margin-left:2px;';
