@@ -1140,8 +1140,10 @@ async function exportImage() {
         const pngDataUrl = canvas.toDataURL('image/png');
         if (window.electronAPI) {
           const ok = await window.electronAPI.exportPngFile({ dataUrl: pngDataUrl, fileName: pngFileName });
-          if (ok) showToast('PNG 已保存到 output 文件夹');
-          else showToast('已取消');
+          if (ok) {
+            const dirs = await window.electronAPI.getUserDirs();
+            showToast(`PNG 已保存到 ${dirs.output}`);
+          } else showToast('已取消');
         } else {
           const a = document.createElement('a');
           a.download = pngFileName;

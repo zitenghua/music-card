@@ -2,10 +2,24 @@ const { app, BrowserWindow, dialog, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
+// 用户数据目录（打包后→文档/音乐卡片，开发→项目根目录）
+function userDir(sub) {
+  const base = app.isPackaged
+    ? path.join(app.getPath('documents'), '音乐卡片制作工具')
+    : path.join(__dirname, '..');
+  const dir = path.join(base, sub);
+  try { fs.mkdirSync(dir, { recursive: true }); } catch {}
+  return dir;
+}
+const outputDir = userDir('output');
+const configsDir = userDir('configs');
+
 ipcMain.handle('select-cover-file', async () => {
   const coversDir = path.join(__dirname, '..', 'covers');
+  // covers 已打包在 app 内，目录可能不存在；回退到文档
+  const defaultPath = fs.existsSync(coversDir) ? coversDir : userDir('');
   const result = await dialog.showOpenDialog({
-    defaultPath: coversDir,
+    defaultPath,
     properties: ['openFile'],
     filters: [{ name: '图片', extensions: ['png', 'jpg', 'jpeg', 'webp', 'gif'] }],
   });
@@ -19,13 +33,7 @@ ipcMain.handle('select-cover-file', async () => {
   return { dataUrl, fileName: path.basename(filePath) };
 });
 
-// 配置文件夹路径
-const configsDir = path.join(__dirname, '..', 'configs');
-
 ipcMain.handle('export-config-file', async (event, { fileName, content }) => {
-  // 确保 configs 目录存在
-  try { fs.mkdirSync(configsDir, { recursive: true }); } catch {}
-
   const result = await dialog.showSaveDialog({
     defaultPath: path.join(configsDir, fileName),
     filters: [{ name: 'JSON 配置', extensions: ['json'] }],
@@ -36,15 +44,9 @@ ipcMain.handle('export-config-file', async (event, { fileName, content }) => {
   return true;
 });
 
-// 输出文件夹路径
-const productsDir = path.join(__dirname, '..', 'output');
-
 ipcMain.handle('export-png-file', async (event, { dataUrl, fileName }) => {
-  // 确保输出目录存在
-  try { fs.mkdirSync(productsDir, { recursive: true }); } catch {}
-
   const result = await dialog.showSaveDialog({
-    defaultPath: path.join(productsDir, fileName || 'music-card.png'),
+    defaultPath: path.join(outputDir, fileName || 'music-card.png'),
     filters: [{ name: 'PNG 图片', extensions: ['png'] }],
   });
   if (result.canceled || !result.filePath) return false;
@@ -58,9 +60,6 @@ ipcMain.handle('export-png-file', async (event, { dataUrl, fileName }) => {
 });
 
 ipcMain.handle('import-config-file', async () => {
-  // 确保 configs 目录存在
-  try { fs.mkdirSync(configsDir, { recursive: true }); } catch {}
-
   const result = await dialog.showOpenDialog({
     defaultPath: configsDir,
     properties: ['openFile'],
@@ -71,6 +70,14 @@ ipcMain.handle('import-config-file', async () => {
   const filePath = result.filePaths[0];
   const content = fs.readFileSync(filePath, 'utf-8');
   return content;
+});
+
+// 暴露目录路径给渲染进程（用于 Toast 提示）
+ipcMain.handle('get-user-dirs', async () => {
+  return {
+    output: outputDir,
+    configs: configsDir,
+  };
 });
 
 function createWindow() {

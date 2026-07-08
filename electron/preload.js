@@ -5,4 +5,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   exportConfigFile: (data) => ipcRenderer.invoke('export-config-file', data),
   importConfigFile: () => ipcRenderer.invoke('import-config-file'),
   exportPngFile: (data) => ipcRenderer.invoke('export-png-file', data),
+  getUserDirs: () => ipcRenderer.invoke('get-user-dirs'),
 });
