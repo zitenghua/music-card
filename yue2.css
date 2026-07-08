@@ -226,7 +226,7 @@ body {
 }
 .config-header .sub {
     font-size: 13px;
-    color: #bbb;
+    color: #888;
     margin-top: 3px;
     font-weight: 400;
 }
@@ -254,15 +254,15 @@ body {
 .history-title {
     font-size: 12px;
     font-weight: 600;
-    color: #888;
+    color: #666;
     flex: 0 0 auto;
 }
 
 .history-badge {
     font-size: 10px;
     font-weight: 600;
-    color: #aaa;
-    background: #f0f0f0;
+    color: #888;
+    background: #eee;
     padding: 0 7px;
     border-radius: 8px;
     line-height: 16px;
@@ -271,7 +271,7 @@ body {
 .history-arrow {
     margin-left: auto;
     font-size: 10px;
-    color: #ccc;
+    color: #aaa;
     transition: transform 0.15s;
 }
 
@@ -283,7 +283,7 @@ body {
     padding: 20px;
     text-align: center;
     font-size: 12px;
-    color: #ccc;
+    color: #999;
 }
 
 .history-list {
@@ -306,7 +306,7 @@ body {
 .history-item-time {
     font-size: 12px;
     font-weight: 500;
-    color: #999;
+    color: #777;
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
     margin-right: auto;
@@ -355,7 +355,7 @@ body {
 .history-del-btn {
     font-size: 11px;
     font-weight: 500;
-    color: #ccc;
+    color: #999;
     background: none;
     border: none;
     border-radius: 4px;
@@ -387,7 +387,7 @@ body {
 .section-label {
     font-size: 11px;
     font-weight: 600;
-    color: #b0b0b0;
+    color: #777;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin: 20px 0 8px;
@@ -427,7 +427,7 @@ body {
 .config-group label {
     font-size: 10.5px;
     font-weight: 500;
-    color: #aaa;
+    color: #666;
     line-height: 1.3;
 }
 /* 带单位的输入行：输入框 + 单位标签水平排列 */
@@ -444,8 +444,8 @@ body {
 .config-unit-badge {
     font-size: 11px;
     font-weight: 500;
-    color: #999;
-    background: #f0f0f0;
+    color: #777;
+    background: #e8e8e8;
     padding: 0 8px;
     border-radius: 6px;
     line-height: 22px;
@@ -551,7 +551,7 @@ body {
 .drop-zone-icon {
     width: 36px; height: 36px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px; color: #bbb; flex-shrink: 0;
+    font-size: 20px; color: #888; flex-shrink: 0;
 }
 .image-drop-zone.has-image .drop-zone-icon { color: #2d7d46; }
 
@@ -560,7 +560,7 @@ body {
     font-size: 12.5px; font-weight: 500; color: #333;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.drop-zone-hint { font-size: 10.5px; color: #bbb; }
+.drop-zone-hint { font-size: 10.5px; color: #888; }
 
 .config-actions {
     display: flex;
@@ -705,7 +705,7 @@ body {
     min-width: 0;
 }
 .cover-search-row input:focus { border-color: #ccc; background: #fff; }
-.cover-search-row input::placeholder { color: #bbb; }
+.cover-search-row input::placeholder { color: #999; }
 
 .cover-search-row select {
     padding: 6px 8px;
