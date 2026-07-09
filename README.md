@@ -105,7 +105,7 @@ music-card/
 │   └── preload.js     ← 桥接 API
 ├── covers/            ← 默认封面图片（花鳥風月）
 ├── package.json
-└── icon.svg           ← 应用图标
+└── icon.svg           ← 应用图标（内嵌于 README）
 
 # 安装后会创建的目录（位于 exe 同目录下）
 ├── covers/            ← 用户封面（可自行添加图片）
