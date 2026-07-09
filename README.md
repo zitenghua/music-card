@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="icon.svg" width="100" height="100" alt="logo">
+  <img src="https://raw.githubusercontent.com/zitenghua/music-card/dev/src-tauri/icons/icon.png" width="100" height="100" alt="logo">
   <h1 align="center">音乐卡片制作工具</h1>
   <p align="center">
     一款可配置的音乐卡片设计工具<br>
