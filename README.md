@@ -1,32 +1,22 @@
-<div align="center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 512 512">
-    <rect width="512" height="512" rx="80" fill="#f5a0b8"/>
-    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff6b93" transform="rotate(0 256 256)"/>
-    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff8aa5" transform="rotate(60 256 256)"/>
-    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff6b93" transform="rotate(120 256 256)"/>
-    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff8aa5" transform="rotate(180 256 256)"/>
-    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff6b93" transform="rotate(240 256 256)"/>
-    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff8aa5" transform="rotate(300 256 256)"/>
-    <circle cx="256" cy="256" r="36" fill="#ffe066"/>
-    <circle cx="256" cy="256" r="24" fill="#ffcc33"/>
-  </svg>
-  <h1 align="center">音乐卡片制作工具</h1>
-  <p align="center">
-    一款可配置的 NFC 音乐卡片设计工具<br>
-    搜索封面 · 调整样式 · 导出打印
-  </p>
-  <p>
-    <a href="#-功能">功能</a> ·
-    <a href="#-安装">安装</a> ·
-    <a href="#-使用">使用</a> ·
-    <a href="#-开发">开发</a>
-  </p>
-  <p>
-    <a href="https://github.com/zitenghua/music-card/releases">
-      <img src="https://img.shields.io/badge/下载-v1.0.0-2d7d46?style=for-the-badge&logo=github" alt="Download">
-    </a>
-  </p>
-</div>
+<p align="center">
+  <img src="./icon.svg" width="80" height="80" alt="logo">
+</p>
+
+<h1 align="center">音乐卡片制作工具</h1>
+<p align="center">一款可配置的 NFC 音乐卡片设计工具 — 搜索封面 · 调整样式 · 导出打印</p>
+
+<p align="center">
+  <a href="#-功能">功能</a> ·
+  <a href="#-安装">安装</a> ·
+  <a href="#-使用">使用</a> ·
+  <a href="#-开发">开发</a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/zitenghua/music-card/releases">
+    <img src="https://img.shields.io/badge/下载-v1.0.0-2d7d46?style=for-the-badge&logo=github" alt="Download">
+  </a>
+</p>
 
 ---
 
