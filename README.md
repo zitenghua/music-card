@@ -1,16 +1,15 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/zitenghua/music-card/dev/src-tauri/icons/icon.png" width="100" height="100" alt="logo">
+  <img src="icon.svg" width="80" height="80" alt="logo">
   <h1 align="center">音乐卡片制作工具</h1>
   <p align="center">
-    一款可配置的音乐卡片设计工具<br>
+    一款可配置的 NFC 音乐卡片设计工具<br>
     搜索封面 · 调整样式 · 导出打印
   </p>
   <p>
-    <a href="#features">功能</a> ·
-    <a href="#screenshots">预览</a> ·
-    <a href="#installation">安装</a> ·
-    <a href="#usage">使用</a> ·
-    <a href="#development">开发</a>
+    <a href="#-功能">功能</a> ·
+    <a href="#-安装">安装</a> ·
+    <a href="#-使用">使用</a> ·
+    <a href="#-开发">开发</a>
   </p>
   <p>
     <a href="https://github.com/zitenghua/music-card/releases">
@@ -60,14 +59,9 @@
 ### 开发者
 
 ```bash
-# 克隆仓库
 git clone https://github.com/zitenghua/music-card.git
 cd music-card
-
-# 安装依赖
 npm install
-
-# 启动开发模式
 npm run tauri dev
 ```
 
@@ -99,9 +93,9 @@ npm run tauri build
 
 | 技术 | 用途 |
 |------|------|
-| [Tauri v2](https://v2.tauri.app/) | 桌面应用框架 |
-| [React 19](https://react.dev/) | 前端 UI |
-| [Vite 6](https://vite.dev/) | 构建工具 |
+| Tauri v2 | 桌面应用框架 |
+| React 19 | 前端 UI |
+| Vite 6 | 构建工具 |
 | Rust | 原生对话框与文件操作 |
 | iTunes Search API | 封面搜索 |
 
@@ -115,26 +109,16 @@ music-card/
 │   ├── configData.js             ← 配置参数定义
 │   ├── api.js                    ← Tauri invoke 封装
 │   ├── components/               ← React 组件
-│   │   ├── ConfigPanel.jsx       ← 配置面板
-│   │   ├── CardPreview.jsx       ← 卡片预览
-│   │   ├── CoverSearch.jsx       ← 封面搜索
-│   │   ├── HistoryPanel.jsx      ← 历史记录
-│   │   └── ConfigActions.jsx     ← 操作按钮
 │   ├── utils/                    ← 工具函数
 │   └── styles.css                ← 样式
 ├── src-tauri/                    ← Tauri / Rust 后端
 │   ├── src/lib.rs                ← Rust 命令
 │   ├── icons/                    ← 应用图标
 │   └── tauri.conf.json           ← Tauri 配置
-├── icon.svg                      ← 应用图标源文件
-├── index.html                    ← HTML 入口
+├── icon.svg                      ← 应用图标
 ├── vite.config.js                ← Vite 配置
 └── package.json
 ```
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request。
 
 ## 📄 许可证
 
