@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="icon.svg" width="80" height="80" alt="logo">
+  <img src="icon.png" width="80" height="80" alt="logo">
   <h1 align="center">音乐卡片制作工具</h1>
   <p align="center">
     一款可配置的 NFC 音乐卡片设计工具<br>
