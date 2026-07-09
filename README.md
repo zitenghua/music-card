@@ -52,7 +52,8 @@
 
 ### 普通用户
 
-从 [Releases](https://github.com/zitenghua/music-card/releases) 下载 `音乐卡片制作工具_1.0.0_x64-setup.exe`，双击安装即可使用。
+从 [Releases](https://github.com/zitenghua/music-card/releases) 下载 `音乐卡片制作工具__1.2.0_x64-setup.exe
+`，双击安装即可使用。
 
 **系统要求：** Windows 10/11（自带 WebView2 运行环境）
 
