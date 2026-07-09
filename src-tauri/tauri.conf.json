@@ -2,9 +2,10 @@
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "音乐卡片制作工具",
   "version": "1.0.0",
-  "identifier": "com.music-card-maker.app",
+  "identifier": "com.musiccardmaker.app",
   "build": {
-    "frontendDist": "../src"
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1420"
   },
   "app": {
     "withGlobalTauri": true,
@@ -21,11 +22,9 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": "nsis",
     "resources": [
-      "../covers/*",
-      "../configs/*",
-      "../output/*"
+      "resources/covers/*"
     ],
     "icon": [
       "icons/32x32.png",
