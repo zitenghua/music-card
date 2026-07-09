@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://github.com/zitenghua/music-card/releases">
-    <img src="https://img.shields.io/badge/下载-v1.0.0-2d7d46?style=for-the-badge&logo=github" alt="Download">
+    <img src="https://img.shields.io/badge/下载-v1.2.0-2d7d46?style=for-the-badge&logo=github" alt="Download">
   </a>
 </p>
 
