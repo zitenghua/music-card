@@ -1,5 +1,15 @@
 <div align="center">
-  <img src="icon.png" width="80" height="80" alt="logo">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="80" height="80">
+    <rect width="512" height="512" rx="80" fill="#f5a0b8"/>
+    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff6b93" transform="rotate(0 256 256)"/>
+    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff8aa5" transform="rotate(60 256 256)"/>
+    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff6b93" transform="rotate(120 256 256)"/>
+    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff8aa5" transform="rotate(180 256 256)"/>
+    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff6b93" transform="rotate(240 256 256)"/>
+    <ellipse cx="256" cy="120" rx="38" ry="68" fill="#ff8aa5" transform="rotate(300 256 256)"/>
+    <circle cx="256" cy="256" r="36" fill="#ffe066"/>
+    <circle cx="256" cy="256" r="24" fill="#ffcc33"/>
+  </svg>
   <h1 align="center">音乐卡片制作工具</h1>
   <p align="center">
     一款可配置的 NFC 音乐卡片设计工具<br>
